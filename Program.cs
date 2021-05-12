@@ -142,12 +142,12 @@ namespace cursoLinqAlura.Entity
             var consulta = from inf in context.ItemNotaFiscals
                            where inf.Faixa.Album.Artista.Nome.Contains(buscaArsitas)
                            select new { totalDoItem = inf.Quantidade * inf.PrecoUnitario };
-            
+
             var totalArtista = consulta.Sum(x => x.totalDoItem);
 
             System.Console.WriteLine("Total do artista é: R$ {0}", totalArtista);
         }
-    
+
         public static void FuncaoGroupBy(AluraTunesContext context, string buscaArsitas)
         {
             var query = from inf in context.ItemNotaFiscals
@@ -156,18 +156,34 @@ namespace cursoLinqAlura.Entity
                         let vendasPorAlbum = agrupado.Sum(a => a.Quantidade * a.PrecoUnitario)
                         orderby vendasPorAlbum
                             descending
-                        select new 
-                        { 
-                         Titulo = agrupado.Key.Titulo,
-                         TotalPorAlbum = vendasPorAlbum
+                        select new
+                        {
+                            Titulo = agrupado.Key.Titulo,
+                            TotalPorAlbum = vendasPorAlbum
                         };
-            
+
             foreach (var item in query)
             {
-                System.Console.WriteLine("{0} \t {1}" ,item.Titulo, item.TotalPorAlbum);
+                System.Console.WriteLine("{0} \t {1}", item.Titulo, item.TotalPorAlbum);
             }
 
-            
+
+        }
+
+        public static void MinMaxAvg(AluraTunesContext context)
+        {
+            var vendas = (from nf in context.NotaFiscals
+                          group nf by 1 into agrupado
+                          select new
+                          {
+                              maiorVenda = agrupado.Max(nf => nf.Total),
+                              menorVenda = agrupado.Min(nf => nf.Total),
+                              vendaMedia = agrupado.Average(nf => nf.Total)
+                          }).Single();
+
+            Console.WriteLine("A maior venda é de R$ {0}", vendas.maiorVenda);
+            Console.WriteLine("A menor venda é de R$ {0}", vendas.menorVenda);
+            Console.WriteLine("A venda média é de R$ {0}", vendas.vendaMedia);
         }
     }
 }
