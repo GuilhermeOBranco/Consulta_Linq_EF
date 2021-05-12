@@ -14,8 +14,9 @@ namespace cursoLinqAlura.Entity
             {
 
                 //GetFaixas(context, "Led", "");
-                ContarFaixas(context, "Led", "");
-
+                // ContarFaixas(context, "Led", "");
+                // FuncaoSum(context, "Led", "");
+                
 
             }
 
@@ -52,18 +53,30 @@ namespace cursoLinqAlura.Entity
 
             var quantidade = query.Count();
             System.Console.WriteLine(quantidade);
+
+            System.Console.WriteLine("Usando Count com query syntax");
+
+            var queryCount = (from f in context.Faixas
+                              where f.Album.Artista.Nome.Contains(buscaArsitas)
+                              select f).Count();
+            System.Console.WriteLine(queryCount);
+
             #endregion
 
 
             #region MétodoPorFunção
-                var quantidadeFuncao = context.Faixas.Where(x => x.Album.Artista.Nome.Contains("Led")).Count();
-                System.Console.WriteLine(quantidadeFuncao);
+            var quantidadeFuncao = context.Faixas.Where(x => x.Album.Artista.Nome.Contains("Led")).Count();
+            System.Console.WriteLine(quantidadeFuncao);
+
+            System.Console.WriteLine("SEM USO DO WHERE");
+
+            var quantidadeFuncao2 = context.Faixas.Count(x => x.Album.Artista.Nome.Contains("Led"));
+            System.Console.WriteLine(quantidadeFuncao2);
             #endregion
 
-        //MÉTODO POR FUNÇÃO SE MOSTROU SER 52 MS MAIS RÁPIDO QUE O MÉTODO DE CONSULTA.
-       }
+            //MÉTODO POR FUNÇÃO SE MOSTROU SER 52 MS MAIS RÁPIDO QUE O MÉTODO DE CONSULTA.
+        }
 
-    //EXEMPLOS REALIZADOS NO CURSO
         public static void Exemplos(AluraTunesContext context, string buscaArsitas, string buscaAlbum)
         {
             var query = from g in context.Generos
@@ -124,5 +137,15 @@ namespace cursoLinqAlura.Entity
 
         }
 
+        public static void FuncaoSum(AluraTunesContext context, string buscaArsitas, string buscaAlbum)
+        {
+            var consulta = from inf in context.ItemNotaFiscals
+                           where inf.Faixa.Album.Artista.Nome.Contains(buscaArsitas)
+                           select new { totalDoItem = inf.Quantidade * inf.PrecoUnitario };
+            
+            var totalArtista = consulta.Sum(x => x.totalDoItem);
+
+            System.Console.WriteLine("Total do artista é: R$ {0}", totalArtista);
+        }
     }
 }
