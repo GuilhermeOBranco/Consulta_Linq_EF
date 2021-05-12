@@ -6,6 +6,4 @@ Repositório sobre consultas LINQ com EF
 
 Aqui você vai encontrar:
 
-*consulta LINQ com sintaxe de método
-*consulta LINQ com sintaxe de consulta
-*ordenação de uma consulta LINQ
+*consulta LINQ com sintaxe de método * consulta LINQ com sintaxe de consulta * ordenação de uma consulta LINQ
