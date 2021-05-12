@@ -16,7 +16,7 @@ namespace cursoLinqAlura.Entity
                 //GetFaixas(context, "Led", "");
                 // ContarFaixas(context, "Led", "");
                 // FuncaoSum(context, "Led", "");
-                
+
 
             }
 
@@ -146,6 +146,28 @@ namespace cursoLinqAlura.Entity
             var totalArtista = consulta.Sum(x => x.totalDoItem);
 
             System.Console.WriteLine("Total do artista é: R$ {0}", totalArtista);
+        }
+    
+        public static void FuncaoGroupBy(AluraTunesContext context, string buscaArsitas)
+        {
+            var query = from inf in context.ItemNotaFiscals
+                        where inf.Faixa.Album.Artista.Nome.Contains(buscaArsitas)
+                        group inf by inf.Faixa.Album into agrupado
+                        let vendasPorAlbum = agrupado.Sum(a => a.Quantidade * a.PrecoUnitario)
+                        orderby vendasPorAlbum
+                            descending
+                        select new 
+                        { 
+                         Titulo = agrupado.Key.Titulo,
+                         TotalPorAlbum = vendasPorAlbum
+                        };
+            
+            foreach (var item in query)
+            {
+                System.Console.WriteLine("{0} \t {1}" ,item.Titulo, item.TotalPorAlbum);
+            }
+
+            
         }
     }
 }
