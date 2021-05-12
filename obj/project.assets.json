@@ -6085,11 +6085,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projetos\\CursoLinqAlura\\cursoLinqAlura.Entity\\cursoLinqAlura.Entity.csproj",
+      "projectUniqueName": "d:\\Projetos\\CursoLinqAlura\\cursoLinqAlura.Entity\\cursoLinqAlura.Entity.csproj",
       "projectName": "cursoLinqAlura.Entity",
-      "projectPath": "D:\\Projetos\\CursoLinqAlura\\cursoLinqAlura.Entity\\cursoLinqAlura.Entity.csproj",
+      "projectPath": "d:\\Projetos\\CursoLinqAlura\\cursoLinqAlura.Entity\\cursoLinqAlura.Entity.csproj",
       "packagesPath": "C:\\Users\\Guilherme\\.nuget\\packages\\",
-      "outputPath": "D:\\Projetos\\CursoLinqAlura\\cursoLinqAlura.Entity\\obj\\",
+      "outputPath": "d:\\Projetos\\CursoLinqAlura\\cursoLinqAlura.Entity\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Guilherme\\AppData\\Roaming\\NuGet\\NuGet.Config"
